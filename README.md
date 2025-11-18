@@ -11,24 +11,22 @@
 ---
 
 # 🌐 Overview  
-This repository is a **professional, enterprise-grade training course** teaching you how to build a fully secure, compliant, and production-ready **Healthcare API Platform** on **Google Cloud Platform (GCP)** using:
+This repository is a **professional, enterprise-grade training course** teaching you how to build a secure, compliant, and production-ready **Healthcare API Platform** on **Google Cloud Platform (GCP)** using:
 
 - Google Cloud Healthcare API (FHIR)
 - Zero-Trust Architecture  
 - HIPAA Security Controls  
 - VPC Service Controls (VPC-SC)  
-- CMEK/HSM encryption  
+- CMEK/HSM Encryption  
 - API Gateway for 3rd-party access  
 - Cloud Run serving the FHIR proxy  
-- Terraform automation  
-
-This course is designed for **Cloud Security Architects, Platform Engineers, Healthcare SaaS Builders, and API Security Specialists**.
+- Terraform Automation  
 
 Everything is built hands-on inside your **real GCP project**.
 
 ---
 
-# 📦 **ZIP-Style Course Package Structure**
+# 📦 **Course Package Structure**
 
 📦 healthcare-api-zero-trust-gcp
 ┣ 📚 01-foundation-theory
@@ -40,109 +38,81 @@ Everything is built hands-on inside your **real GCP project**.
 yaml
 Copy code
 
-Each section is clickable below.
+---
+
+# 📚 **01 — Foundation Theory**
+
+### ▶️ **1.1 FHIR Fundamentals**
+- [FHIR Introduction](theory/fhir/intro.md)
+- [FHIR Store](theory/fhir/store.md)
+- [FHIR Security](theory/fhir/security.md)
+
+### ▶️ **1.2 HIPAA Security**
+- [HIPAA Safeguards](theory/hipaa/safeguards.md)
+- [PHI & Access](theory/hipaa/phi.md)
+
+### ▶️ **1.3 Zero Trust Architecture**
+- [Zero Trust Overview](theory/zero-trust/intro.md)
+- [VPC Service Controls](theory/zero-trust/vpc-sc.md)
+
+### ▶️ **1.4 Encryption & CMEK**
+- [CMEK Overview](theory/security/cmek.md)
+- [KMS & HSM](theory/security/kms.md)
 
 ---
 
-# 📚 **01 — Foundation Theory**  
+# 🧪 **02 — Hands-On Labs (Fully Deployable)**
 
-## ▶️ **1.1 FHIR Fundamentals**
-- theory/fhir/intro.md  
-- theory/fhir/store.md  
-- theory/fhir/security.md  
+### 🔨 [Lab 01 — Project Bootstrap](labs/01-bootstrap)
 
-```mermaid
-flowchart TD
-  Clinician --> FHIR_API
-  FHIR_API --> FHIRStore[(FHIR Store R4)]
-  FHIRStore --> CMEK[(CMEK Key - Cloud KMS)]
-  FHIRStore --> Logs[(Audit Logs)]
-▶️ 1.2 HIPAA Security
-theory/hipaa/safeguards.md
+### 🔨 [Lab 02 — Create Secure FHIR Store](labs/02-fhir-store)
 
-theory/hipaa/phi.md
+### 🔨 [Lab 03 — Zero-Trust Perimeter (VPC-SC)](labs/03-zero-trust-vpc-sc)
 
-mermaid
-Copy code
-flowchart LR
-  PHI --> Encryption
-  Encryption --> AccessControls
-  AccessControls --> AuditLogs
-  AuditLogs --> Monitoring
-▶️ 1.3 Zero-Trust Architecture
-theory/zero-trust/intro.md
+### 🔨 [Lab 04 — CMEK Encryption](labs/04-cmek)
 
-theory/zero-trust/vpc-sc.md
+### 🔨 [Lab 05 — API Gateway + Cloud Run FHIR Proxy](labs/05-api-gateway)
 
-mermaid
-Copy code
-flowchart LR
-  Request --> IdentityCheck --> Context --> Decision
-▶️ 1.4 Encryption & CMEK
-theory/security/cmek.md
+### 🔨 [Lab 06 — Third-Party API Access](labs/06-third-party-access)
 
-theory/security/kms.md
+### 🔨 [Lab 07 — Monitoring & Observability](labs/07-observability)
 
-mermaid
-Copy code
-flowchart TD
-  App --> KMS
-  KMS --> DecryptKey
-  DecryptKey --> FHIRStore
-🧪 02 — Hands-On Labs (Fully Deployable)
-🔨 Lab 01 — Project Bootstrap
-➡️ labs/01-bootstrap
+### 🔨 [Lab 08 — HIPAA Audit Logging](labs/08-audit-logging)
 
-🔨 Lab 02 — Create Secure FHIR Store
-➡️ labs/02-fhir-store
+---
 
-🔨 Lab 03 — Zero-Trust Perimeter (VPC-SC)
-➡️ labs/03-zero-trust-vpc-sc
+# ⚙️ **03 — Terraform Modules**
 
-🔨 Lab 04 — CMEK Encryption
-➡️ labs/04-cmek
+- [Bootstrap Module](terraform/bootstrap)
+- [FHIR Infrastructure Module](terraform/fhir)
+- [VPC-SC Module](terraform/vpc-sc)
+- [CMEK Encryption Module](terraform/cmek)
+- [API Gateway Module](terraform/apigw)
+- [Third-Party Access Module](terraform/third-party)
 
-🔨 Lab 05 — API Gateway + Cloud Run FHIR Proxy
-➡️ labs/05-api-gateway
+---
 
-🔨 Lab 06 — Third-Party API Access
-➡️ labs/06-third-party-access
+# 🗺️ **04 — Architecture Diagrams**
+➡️ [Architecture Diagrams](diagrams)
 
-🔨 Lab 07 — Monitoring & Observability
-➡️ labs/07-observability
+---
 
-🔨 Lab 08 — HIPAA Audit Logging
-➡️ labs/08-audit-logging
+# 📑 **05 — Binder PDFs**
+➡️ [Binder Documentation](binder)
 
-⚙️ 03 — Terraform Modules
-Reusable infrastructure modules:
+---
 
-terraform/bootstrap
+# 🛡️ **HIPAA Mapping (Course-Wide)**
 
-terraform/fhir
+✔ Access Control — *§164.312(a)(1)*  
+✔ Transmission Security — *§164.312(e)(1)*  
+✔ Integrity — *§164.312(c)(1)*  
+✔ Audit Controls — *§164.312(b)*  
+✔ Workforce Security — *§164.308(a)(3)*  
 
-terraform/vpc-sc
+---
 
-terraform/cmek
-
-terraform/apigw
-
-terraform/third-party
-
-🗺️ 04 — Architecture Diagrams
-➡️ diagrams/
-
-📑 05 — Binder PDF Documentation
-➡️ binder/
-
-🛡️ HIPAA Mapping (Course-Wide)
-✔ Access Control — §164.312(a)(1)
-✔ Transmission Security — §164.312(e)(1)
-✔ Integrity — §164.312(c)(1)
-✔ Audit Controls — §164.312(b)
-✔ Workforce Security — §164.308(a)(3)
-
-💬 Support
-Have issues? Open an issue here:
+# 💬 Support  
+Open issues here:  
 https://github.com/olumidetowoju/healthcare-api-zero-trust-gcp/issues
 
