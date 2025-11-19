@@ -55,9 +55,11 @@ FHIR[(FHIR Store)] --> KMS[(CMEK - Cloud KMS)]
 API[API Gateway] --> Proxy[Cloud Run FHIR Proxy]
 Proxy --> KMS
 KMS --> Audit[(KMS Audit Logs)]
+```
+
 Everything that touches PHI must be encrypted using CMEK.
 
-🧩 5. CMEK Key Lifecycle
+# 🧩 5. CMEK Key Lifecycle
 Stage	Description
 Create	Create key ring & key
 Authorize	Allow only specific service accounts to decrypt
@@ -65,7 +67,7 @@ Rotate	Create new key versions (automatic or manual)
 Retire	Disable old key versions
 Destroy	Permanently disable & schedule deletion
 
-📜 6. HIPAA Mapping
+# 📜 6. HIPAA Mapping
 CMEK supports:
 
 ✔ §164.312(a)(2)(iv) – Encryption
