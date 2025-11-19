@@ -47,9 +47,11 @@ Proxy --> FHIR[FHIR Store]
 FHIR --> Audit[Audit Logs]
 
 Audit --> SCC[Security Command Center]
+```
+
 This diagram shows how technical safeguards layer together to protect PHI.
 
-🔍 5. Your Role as a Cloud Security Architect
+# 🔍 5. Your Role as a Cloud Security Architect
 You design and enforce:
 
 IAM boundaries
@@ -66,7 +68,7 @@ Compliance architecture
 
 In this course, each lab builds one HIPAA safeguard.
 
-🛡 6. HIPAA Mapping Summary
+# 🛡 6. HIPAA Mapping Summary
 ✔ §164.308 – Administrative Safeguards
 ✔ §164.310 – Physical Safeguards
 ✔ §164.312 – Technical Safeguards
