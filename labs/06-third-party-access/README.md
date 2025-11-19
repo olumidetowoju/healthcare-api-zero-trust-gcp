@@ -33,14 +33,15 @@ This lab models **exactly how** that works.
 
 ```mermaid
 flowchart TD
+    ExternalApp[Third-Party App] -->|JWT / OAuth2| APIGW[API Gateway<br/>Planned]
+    APIGW -->|Identity Verified| Proxy[Cloud Run FHIR Proxy<br/>Planned]
+    Proxy --> FHIR[FHIR Store<br/>- Planned]
+    Proxy --> KMS[CMEK<br/>- Planned]
 
-ExternalApp[Third-Party App] -->|JWT / OAuth2| APIGW[API Gateway (Planned)]
-APIGW -->|Identity Verified| Proxy[Cloud Run FHIR Proxy (Planned)]
-Proxy --> FHIR[(FHIR Store - Planned)]
-Proxy --> KMS[(CMEK - Planned)]
+    ExternalApp -->|Requests Blocked<br/>if Unauthorized| APIGW
+```
 
-ExternalApp -->|Requests Blocked if Unauthorized| APIGW
-🔐 3. IDENTITY MODELS FOR THIRD-PARTIES
+# 🔐 3. IDENTITY MODELS FOR THIRD-PARTIES
 Healthcare integrations use:
 
 1️⃣ Service Accounts with Workload Identity Federation
@@ -67,7 +68,7 @@ Used in EHR → Hospital integrations
 
 In Simulated Mode, we document these models only.
 
-🧩 4. ACCESS CONTROL MODEL (Simulated)
+# 🧩 4. ACCESS CONTROL MODEL (Simulated)
 Access is granted based on:
 ExternalOrg identity
 
@@ -85,11 +86,9 @@ Telehealth	Read/Write Observation	Vitals & notes
 No external partner gets full FHIR access.
 Zero-Trust requires minimum necessary permissions.
 
-🧩 5. Terraform Module (Simulated)
+# 🧩 5. Terraform Module (Simulated)
 📄 File: terraform/third-party/main.tf
 
-hcl
-Copy code
 ##############################################
 # Third-Party API Access Module (SIMULATED)
 ##############################################
@@ -111,9 +110,9 @@ variable "access_level" {
 output "note" {
   value = "Third-party access module in Simulated Mode — no real IAM bindings created."
 }
-📟 6. GCLOUD COMMANDS (DOCUMENTATION ONLY — DO NOT RUN)
-bash
-Copy code
+
+# 📟 6. GCLOUD COMMANDS (DOCUMENTATION ONLY — DO NOT RUN)
+
 # DO NOT RUN — WILL INCUR COSTS
 
 # Allow external partner to call API
@@ -126,7 +125,7 @@ gcloud iam service-accounts add-iam-policy-binding \
 gcloud healthcare fhir-stores add-iam-policy-binding ...
 These commands stay in documentation only.
 
-🔍 7. VALIDATION (Simulated)
+# 🔍 7. VALIDATION (Simulated)
 You confirm:
 
 ✔ README file created
@@ -144,7 +143,7 @@ HIPAA Section	Why It Applies
 §164.312(b)	Access logs are auditable
 §164.308(a)(4)	Workforce & partner access management
 
-🎉 LAB 06 COMPLETE (Simulated Mode)
+# 🎉 LAB 06 COMPLETE (Simulated Mode)
 You now have:
 
 ✔ Third-party identity architecture
