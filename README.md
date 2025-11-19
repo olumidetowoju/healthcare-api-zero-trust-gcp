@@ -35,10 +35,6 @@ Everything is built hands-on inside your **real GCP project**.
 ┣ 🗺️ 04-diagrams
 ┗ 📑 05-binder-pdfs
 
-yaml
-Copy code
-
----
 
 # 📚 **01 — Foundation Theory**
 
