@@ -1,5 +1,4 @@
 # 📘 VPC Service Controls — Deep Dive
-
 ### Hybrid Style (Textbook + Analogy + Enterprise)
 
 ---
