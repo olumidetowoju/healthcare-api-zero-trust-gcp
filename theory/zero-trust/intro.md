@@ -55,12 +55,14 @@ Zero Trust ensures:
 
 ```mermaid
 flowchart LR
-User --> Auth[Identity Verification (OIDC/JWT)]
-Auth --> Context[Context Awareness]
-Context --> PolicyDeny{Policy Engine}
-PolicyDeny -->|Allow| Resource
-PolicyDeny -->|Deny| Blocked
-Key components:
+    User --> Auth[Identity Verification<br/>OIDC/JWT]
+    Auth --> Context[Context Awareness]
+    Context --> Policy[Policy Engine]
+    Policy --> |Allow| Resource
+    Policy --> |Deny| Blocked
+```
+
+**Key components:**
 
 Authentication
 
@@ -76,7 +78,7 @@ Encryption (CMEK)
 
 Auditing
 
-🧱 5. Google Cloud Zero Trust Stack
+# 🧱 5. Google Cloud Zero Trust Stack
 Layer	GCP Component
 Identity	IAM, SA tokens, OIDC
 Policy	IAM Conditions, VPC-SC
@@ -87,7 +89,7 @@ Audit	Cloud Logging + SCC
 
 This course models each component in sequence.
 
-🛡 6. HIPAA Mapping
+# 🛡 6. HIPAA Mapping
 Zero Trust supports:
 ✔ §164.312(a)(1) – Access Control
 ✔ §164.312(b) – Audit Controls
