@@ -2,7 +2,7 @@
 # 📘 PHI & Access — Understanding Protected Health Information
 ### Hybrid Explanation (Textbook + Analogy + Enterprise)
 
-```
+---
 
 # 📙 1. What is PHI?
 
