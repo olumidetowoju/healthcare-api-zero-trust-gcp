@@ -45,15 +45,19 @@ flowchart TD
   FHIRProxy --> FHIRStore[(FHIR Store - Planned)]
   FHIRStore --> CMEK[(CMEK Key - Planned)]
   FHIRStore --> Audit[(Audit Logs - Planned)]
-🧩 4. Access Control Model (Design Only)
-Key IAM Roles (Planned):
+```
+
+# 🧩 4. Access Control Model (Design Only)
+**Key IAM Roles (Planned):**
+
 Role	Purpose
 roles/healthcare.fhirStoreViewer	Read FHIR records
 roles/healthcare.fhirStoreEditor	Write/update records
 roles/healthcare.admin	Admin (strictly controlled)
 roles/iam.serviceAccountUser	Proxy → FHIR store
 
-Service Accounts (Planned):
+**Service Accounts (Planned):**
+
 SA	Description
 fhir-proxy-sa	Cloud Run service connecting to FHIR
 api-gateway-sa	Validates requests
@@ -61,13 +65,11 @@ auditor-sa	Reads audit logs (min access)
 
 None of these are created in Simulated Mode — but they are documented for architecture.
 
-🔧 5. Terraform Module (Simulated)
+# 🔧 5. Terraform Module (Simulated)
 Path: terraform/fhir/main.tf
 
 We build the structure so your repo looks identical to a real deployment.
 
-hcl
-Copy code
 ##############################################
 # Terraform FHIR Store Module (SIMULATED MODE)
 ##############################################
@@ -89,11 +91,10 @@ variable "dataset_name" {
 output "note" {
   value = "FHIR Store module in Simulated Mode — no real Healthcare API resources created."
 }
-🔨 6. gcloud Commands (Documented Only — DO NOT RUN)
+
+# 🔨 6. gcloud Commands (Documented Only — DO NOT RUN)
 In real deployments, you would create the dataset + FHIR store:
 
-bash
-Copy code
 gcloud healthcare datasets create <dataset> --location=us-central1
 gcloud healthcare fhir-stores create <store> \
   --dataset=<dataset> \
@@ -102,7 +103,7 @@ gcloud healthcare fhir-stores create <store> \
 In Simulated Mode:
 These commands are not run — you only document them.
 
-🔍 7. Validation (Simulated)
+# 🔍 7. Validation (Simulated)
 You should verify:
 
 ✔ Terraform module exists
@@ -112,7 +113,7 @@ You should verify:
 ✔ README present in labs/02-fhir-store
 ✔ Nothing deployed to GCP
 
-🛡 8. HIPAA Mapping
+# 🛡 8. HIPAA Mapping
 This lab aligns with:
 
 Control	Reason
@@ -121,7 +122,7 @@ Control	Reason
 §164.312(c)(1)	Data integrity modeling
 §164.312(e)(1)	Secure transmission (API Gateway planned)
 
-🎉 Lab 02 Complete (Simulated Mode)
+# 🎉 Lab 02 Complete (Simulated Mode)
 You now have:
 
 ✔ FHIR architecture
