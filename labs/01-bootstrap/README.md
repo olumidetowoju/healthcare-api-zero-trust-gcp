@@ -158,5 +158,5 @@ Section	Description
 # 🎉 Lab 01 Complete
 You now have the foundation of your Healthcare FHIR Zero-Trust GCP platform.
 
-Next lab: Secure FHIR Store.
+Next lab: Lab 02 — Secure FHIR Store.
 
