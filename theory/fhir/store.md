@@ -33,7 +33,9 @@ SQL/Firestore do *not* do this safely for healthcare.
 flowchart TD
 FHIRStore[(FHIR Store)] --> CMEK[(CMEK Key - Planned)]
 FHIRStore --> Audit[(Audit Logs - Planned)]
-🛠 4. What You Design in This Course
+```
+
+## 🛠 4. What You Design in This Course
 In Simulated Mode:
 
 You define the architecture
