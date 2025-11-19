@@ -1,7 +1,8 @@
 
-📘 PHI & Access — Understanding Protected Health Information
-Hybrid Explanation (Textbook + Analogy + Enterprise)
-📙 1. What is PHI?
+# 📘 PHI & Access — Understanding Protected Health Information
+### Hybrid Explanation (Textbook + Analogy + Enterprise)
+
+# 📙 1. What is PHI?
 
 PHI = Protected Health Information
 Any data that identifies a patient + relates to health conditions, treatments, or payments.
@@ -24,7 +25,7 @@ Insurance info
 
 Prescriptions
 
-🏥 2. Analogy — PHI As "Identity + Condition"
+# 🏥 2. Analogy — PHI As "Identity + Condition"
 
 If identity + health detail are both present → it is PHI.
 
@@ -32,7 +33,7 @@ Example:
 “Patient #88a73c has diabetes” → PHI
 “A person has diabetes” → Not PHI
 
-🔐 3. PHI Rules for Cloud Architects
+# 🔐 3. PHI Rules for Cloud Architects
 
 You must ensure:
 
@@ -45,16 +46,17 @@ You must ensure:
 
 This is why Labs 03–08 exist.
 
-🧠 4. PHI Flow Architecture (Simulated)
+# 🧠 4. PHI Flow Architecture (Simulated)
+```mermaid
 flowchart TD
 Client --> APIGW
 APIGW --> Proxy
 Proxy --> FHIR[(FHIR Store - PHI)]
 FHIR --> CMEK[(CMEK - Planned)]
 FHIR --> Audit[(Audit Logs)]
+```
 
-
-PHI only flows through:
+**PHI only flows through:**
 
 API Gateway
 
@@ -64,7 +66,7 @@ FHIR Store
 
 Audit logs (metadata only)
 
-🧩 5. PHI Access Control Model
+# 🧩 5. PHI Access Control Model
 
 PHI must be accessed through policy + identity + boundary:
 
@@ -77,7 +79,7 @@ Audit	Logging, SCC
 
 This multi-layer stack is mandatory for HIPAA compliance.
 
-🛡 6. HIPAA Mapping
+# 🛡 6. HIPAA Mapping
 
 This file maps directly to:
 
