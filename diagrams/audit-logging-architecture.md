@@ -1,5 +1,5 @@
-
 📜 Audit Logging Architecture
+```mermaid
 flowchart TD
 API --> APILog[(API Access Logs)]
 Proxy --> ProxyLog[(Proxy Logs)]
@@ -12,5 +12,3 @@ FHIRLog --> SIEM
 KMSLog --> SIEM
 
 SIEM --> SCC[(Security Command Center)]
-
-
