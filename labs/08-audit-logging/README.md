@@ -45,9 +45,11 @@ subgraph LoggingLayer
   SCC
   SIEM
 end
+```
+
 All components are planned, not deployed.
 
-📂 3. Types of Logs Required for HIPAA
+# 📂 3. Types of Logs Required for HIPAA
 ✔ Access Logs
 Every FHIR read/write must generate:
 
@@ -72,7 +74,7 @@ Terraform changes, IAM policies, configuration drift.
 ✔ Data Access Logs
 CMEK decrypt calls (KMS audit logs).
 
-🔐 4. IAM Roles for Audit Security (Simulated)
+# 🔐 4. IAM Roles for Audit Security (Simulated)
 Role	Purpose
 roles/logging.viewer	Standard log readers
 roles/logging.privateLogViewer	PHI-sensitive logs
@@ -82,13 +84,11 @@ roles/securitycenter.findingsViewer	Threat detection
 
 None of these are deployed — only documented.
 
-🧩 5. Terraform Module (Simulated)
+# 🧩 5. Terraform Module (Simulated)
 File: terraform/audit/main.tf
 
 This models audit sinks without creating resources.
 
-hcl
-Copy code
 ##############################################
 # Audit Logging Module (SIMULATED MODE)
 ##############################################
@@ -105,9 +105,9 @@ variable "sink_name" {
 output "note" {
   value = "Audit Logging module (Simulated Mode) — no sinks or exports created."
 }
-📟 6. gcloud Commands (Documentation Only — DO NOT RUN)
-bash
-Copy code
+
+# 📟 6. gcloud Commands (Documentation Only — DO NOT RUN)
+
 # DO NOT RUN — WOULD CREATE COSTLY SINKS
 
 # Create BigQuery Sink
@@ -119,7 +119,7 @@ gcloud logging sinks create fhir-access-sink \
 gcloud scc notifications create ...
 These are portfolio references.
 
-🔍 7. Validation Checklist (Simulated)
+# 🔍 7. Validation Checklist (Simulated)
 You confirm:
 
 ✔ labs/08-audit-logging/README.md exists
@@ -130,7 +130,7 @@ You confirm:
 ✔ No GCP resources created
 ✔ Zero cost
 
-🛡 8. HIPAA Mapping
+# 🛡 8. HIPAA Mapping
 HIPAA Section	Why Required
 §164.312(b)	Audit controls for all PHI access
 §164.308(a)(1)	Security management processes
@@ -139,7 +139,7 @@ HIPAA Section	Why Required
 
 Audit logging is a mandatory HIPAA safeguard.
 
-🎉 LAB 08 COMPLETE (Simulated Mode)
+# 🎉 LAB 08 COMPLETE (Simulated Mode)
 You now have:
 
 ✔ PHI audit model
