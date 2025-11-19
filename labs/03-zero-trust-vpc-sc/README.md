@@ -28,24 +28,26 @@ flowchart LR
   Context --> VPCSC{VPC Service Controls}
   VPCSC --> Allow[Access Allowed]
   VPCSC --> Deny[Data Exfiltration Blocked]
-🗂 3. Planned VPC-SC Architecture (Simulated)
-mermaid
-Copy code
+```
+
+# 🗂 3. Planned VPC-SC Architecture (Simulated)
+```mermaid
 flowchart TD
+    subgraph Perimeter[Service Perimeter Planned]
+        Dataset[(FHIR Dataset)]
+        FHIRStore[(FHIR Store)]
+        KMS[(CMEK Keys)]
+        Logging[(Audit Logs)]
+    end
 
-  subgraph Perimeter[Service Perimeter (Planned)]
-    Dataset[(FHIR Dataset)]
-    FHIRStore[(FHIR Store)]
-    KMS[(CMEK Keys)]
-    Logging[(Audit Logs)]
-  end
+    Internet -->|Blocked| FHIRStore
+    OutsideActor -->|Blocked| Dataset
+    CompromisedSA -->|Blocked| KMS
+    DevUser --> IAM --> Perimeter
+```
 
-  Internet -->|Blocked| FHIRStore
-  OutsideActor -->|Blocked| Dataset
-  CompromisedSA -->|Blocked| KMS
+**In a real deployment, VPC-SC would protect:**
 
-  DevUser --> IAM --> Perimeter
-In a real deployment, VPC-SC would protect:
 FHIR Store
 
 Healthcare datasets
@@ -56,13 +58,11 @@ Logging + monitoring
 
 In Simulated Mode, we design the perimeter but do not apply it.
 
-🔧 4. Terraform VPC-SC Module (Simulated)
+# 🔧 4. Terraform VPC-SC Module (Simulated)
 This Terraform module represents the perimeter configuration without creating anything.
 
 File: terraform/vpc-sc/main.tf
 
-hcl
-Copy code
 ##############################################
 # Terraform VPC Service Controls (SIMULATED)
 ##############################################
@@ -85,7 +85,8 @@ variable "protected_projects" {
 output "note" {
   value = "VPC-SC module (Simulated Mode) — no perimeter created."
 }
-🛠 5. Zero-Trust Policy Design
+
+# 🛠 5. Zero-Trust Policy Design
 Perimeter Enforces:
 Block data access from outside Google Cloud
 
@@ -99,7 +100,7 @@ Prevent curl or API calls from public networks
 
 None of these are deployed in Simulated Mode — but the design is included for portfolio authenticity.
 
-🔍 6. Validation Checklist (Simulated)
+# 🔍 6. Validation Checklist (Simulated)
 ✔ Terraform module exists
 ✔ README.md describes full Zero-Trust model
 ✔ Mermaid architecture included
@@ -107,14 +108,14 @@ None of these are deployed in Simulated Mode — but the design is included for 
 ✔ No GCP perimeter deployed
 ✔ No billing incurred
 
-🛡 7. HIPAA Mapping
+# 🛡 7. HIPAA Mapping
 HIPAA Control	How Lab 03 Satisfies It
 §164.312(a)(1)	Access Control via perimeter restriction
 §164.312(c)(1)	Integrity via containment boundaries
 §164.312(e)(1)	Transmission security through private-only access
 §164.308(a)(1)	Security management system design
 
-🎉 Lab 03 Complete (Simulated Mode)
+# 🎉 Lab 03 Complete (Simulated Mode)
 You now have:
 ✔ Zero-Trust perimeter architecture
 ✔ Terraform VPC-SC module
