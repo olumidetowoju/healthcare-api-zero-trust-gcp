@@ -38,20 +38,21 @@ flowchart TD
       Logs[Audit Logs]
       Monitoring[Security Monitoring]
   end
-🔧 3. Hands-On Deployment
-Step 1 — Authenticate
-bash
-Copy code
+```
+
+# 🔧 3. Hands-On Deployment
+**Step 1 — Authenticate**
+
 gcloud auth login
 gcloud auth application-default login
-Step 2 — Set Billing Account
-bash
-Copy code
+
+**Step 2 — Set Billing Account**
+
 gcloud beta billing accounts list
 BILLING=<YOUR_BILLING_ACCOUNT_ID>
-Step 3 — Create Projects
-bash
-Copy code
+
+**Step 3 — Create Projects**
+
 PRIMARY_ID="stc-health-primary"
 SECURITY_ID="stc-health-security"
 
@@ -59,20 +60,16 @@ gcloud projects create $PRIMARY_ID
 gcloud projects create $SECURITY_ID
 Link billing:
 
-bash
-Copy code
 gcloud beta billing projects link $PRIMARY_ID --billing-account=$BILLING
 gcloud beta billing projects link $SECURITY_ID --billing-account=$BILLING
-Step 4 — Admin Service Account
-bash
-Copy code
+
+**Step 4 — Admin Service Account**
+
 gcloud iam service-accounts create stc-admin-sa \
   --project=$PRIMARY_ID \
   --display-name="SecureTheCloud Admin Automation SA"
 Assign permissions:
 
-bash
-Copy code
 gcloud projects add-iam-policy-binding $PRIMARY_ID \
   --member="serviceAccount:stc-admin-sa@$PRIMARY_ID.iam.gserviceaccount.com" \
   --role="roles/resourcemanager.projectIamAdmin"
@@ -80,9 +77,9 @@ gcloud projects add-iam-policy-binding $PRIMARY_ID \
 gcloud projects add-iam-policy-binding $PRIMARY_ID \
   --member="serviceAccount:stc-admin-sa@$PRIMARY_ID.iam.gserviceaccount.com" \
   --role="roles/serviceusage.serviceUsageAdmin"
-Step 5 — Enable APIs
-bash
-Copy code
+
+**Step 5 — Enable APIs**
+
 APIS=(
 serviceusage.googleapis.com
 cloudresourcemanager.googleapis.com
@@ -103,16 +100,15 @@ for API in "${APIS[@]}"; do
   gcloud services enable $API --project=$PRIMARY_ID
   gcloud services enable $API --project=$SECURITY_ID
 done
-Step 6 — Apply Labels
-bash
-Copy code
+
+**Step 6 — Apply Labels**
+
 gcloud resource-manager labels update $PRIMARY_ID \
   --update=env=prod,owner=stc,hipaa=true
-⚙️ 4. Terraform Bootstrap (bootstrap module)
+
+# ⚙️ 4. Terraform Bootstrap (bootstrap module)
 File: terraform/bootstrap/main.tf
 
-hcl
-Copy code
 terraform {
   required_version = ">= 1.5.0"
   required_providers {
@@ -136,20 +132,21 @@ provider "google-beta" {
 variable "primary_project_id" {}
 variable "security_project_id" {}
 variable "billing_account" {}
-🔍 5. Validation Steps
-Confirm project exists:
-bash
-Copy code
+
+# 🔍 5. Validation Steps
+**Confirm project exists:**
+
 gcloud projects describe $PRIMARY_ID
-Confirm APIs enabled:
-bash
-Copy code
+
+**Confirm APIs enabled:**
+
 gcloud services list --enabled --project=$PRIMARY_ID
-Confirm service account:
-bash
-Copy code
+
+**Confirm service account:**
+
 gcloud iam service-accounts list --project=$PRIMARY_ID
-🛡 6. HIPAA Mapping
+
+# 🛡 6. HIPAA Mapping
 Section	Description
 §164.308(a)(1)	Security management process
 §164.308(a)(3)	Workforce security
@@ -158,7 +155,7 @@ Section	Description
 §164.312(c)(1)	Integrity
 §164.312(e)(1)	Transmission security
 
-🎉 Lab 01 Complete
+# 🎉 Lab 01 Complete
 You now have the foundation of your Healthcare FHIR Zero-Trust GCP platform.
 
 Next lab: Secure FHIR Store.
