@@ -30,24 +30,25 @@ You can't deliver healthcare without it.
 
 ```mermaid
 flowchart TD
+    APIGW[API Gateway] --> Logging[Cloud Logging]
+    Proxy[Cloud Run FHIR Proxy] --> Logging
+    FHIR[FHIR Store] --> Audit[Audit Logs]
 
-APIGW[API Gateway] --> Logging
-Proxy[Cloud Run FHIR Proxy] --> Logging
-FHIR[FHIR Store] --> Audit[Audit Logs]
+    Logging --> Monitoring[Cloud Monitoring Planned]
+    Logging --> ErrorReporting[Error Reporting Planned]
+    Logging --> Trace[Cloud Trace Planned]
+    Audit --> SCC[Security Command Center Planned]
 
-Logging --> Monitoring[Cloud Monitoring (Planned)]
-Logging --> ErrorReporting[Error Reporting (Planned)]
-Logging --> Trace[Cloud Trace (Planned)]
-Audit --> SCC[Security Command Center (Planned)]
+    subgraph Observability Suite
+        Logging
+        Monitoring
+        ErrorReporting
+        Trace
+        SCC
+    end
+```
 
-subgraph Observability Suite
-  Logging
-  Monitoring
-  ErrorReporting
-  Trace
-  SCC
-end
-📊 3. Key Observability Components (Simulated)
+# 📊 3. Key Observability Components (Simulated)
 ✔ Cloud Logging
 Logs for:
 
@@ -97,7 +98,7 @@ Outbound requests (exfiltration attempts)
 
 SA misuse
 
-🔐 4. IAM MODEL (Simulated)
+# 🔐 4. IAM MODEL (Simulated)
 Role	Assigned To	Reason
 roles/logging.viewer	auditors	Read audit logs
 roles/monitoring.viewer	ops team	Read metrics
@@ -107,13 +108,11 @@ roles/securitycenter.findingsViewer	security team	Threat detection
 
 None of these are granted — documented only.
 
-🧩 5. Terraform Module (Simulated)
+# 🧩 5. Terraform Module (Simulated)
 File: terraform/monitoring/main.tf
 
 This defines structure only — no real APIs/resources created.
 
-hcl
-Copy code
 ##############################################
 # Monitoring & Observability Module (SIMULATED)
 ##############################################
@@ -130,9 +129,9 @@ variable "dashboard_name" {
 output "note" {
   value = "Observability module in Simulated Mode — no real dashboards or log sinks created."
 }
-📟 6. GCLOUD COMMANDS (Documentation Only — DO NOT RUN)
-bash
-Copy code
+
+# 📟 6. GCLOUD COMMANDS (Documentation Only — DO NOT RUN)
+
 # DO NOT RUN — WOULD CREATE BILLABLE RESOURCES
 
 # Create log sinks
@@ -145,7 +144,7 @@ gcloud monitoring dashboards create --config-from-file=dashboard.json
 gcloud services enable clouderrorreporting.googleapis.com
 These are examples for documentation.
 
-🔍 7. VALIDATION CHECKLIST (Simulated)
+# 🔍 7. VALIDATION CHECKLIST (Simulated)
 ✔ README created
 ✔ Terraform module created
 ✔ Diagram included
@@ -155,14 +154,14 @@ These are examples for documentation.
 ✔ No real monitoring created
 ✔ Zero billing
 
-🛡 8. HIPAA MAPPING
+# 🛡 8. HIPAA MAPPING
 HIPAA Section	Reason
 §164.312(b)	Audit controls (FHIR access, API logs)
 §164.308(a)(1)	Security management processes
 §164.308(a)(3)	Workforce accountability
 §164.312(c)(1)	Integrity via log review
 
-🎉 LAB 07 COMPLETE (Simulated Mode)
+# 🎉 LAB 07 COMPLETE (Simulated Mode)
 You now have:
 ✔ PHI-safe observability model
 ✔ Healthcare audit pipeline design
