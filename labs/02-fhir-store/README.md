@@ -39,12 +39,12 @@ Only specific people with the correct key get access.
 
 ```mermaid
 flowchart TD
-  Clinician --> App[Healthcare App]
-  App --> API[API Gateway (planned)]
-  API --> FHIRProxy[Cloud Run FHIR Proxy (planned)]
-  FHIRProxy --> FHIRStore[(FHIR Store - Planned)]
-  FHIRStore --> CMEK[(CMEK Key - Planned)]
-  FHIRStore --> Audit[(Audit Logs - Planned)]
+    Clinician --> App[Healthcare App]
+    App --> API["API Gateway (planned)"]
+    API --> FHIRProxy["Cloud Run FHIR Proxy (planned)"]
+    FHIRProxy --> FHIRStore[("FHIR Store - Planned")]
+    FHIRStore --> CMEK[("CMEK Key - Planned")]
+    FHIRStore --> Audit[("Audit Logs - Planned")]
 ```
 
 # 🧩 4. Access Control Model (Design Only)
