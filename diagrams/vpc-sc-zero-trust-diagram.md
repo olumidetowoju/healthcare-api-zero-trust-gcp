@@ -1,5 +1,5 @@
-
 🔒 VPC Service Controls — Zero Trust PHI Boundary
+```mermaid
 flowchart TD
 
 subgraph Perimeter[Service Perimeter]
@@ -10,5 +10,3 @@ end
 
 Internet -->|Blocked| FHIR
 Proxy[Cloud Run] --> FHIR
-
-
