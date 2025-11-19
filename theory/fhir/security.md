@@ -1,6 +1,7 @@
 
-📘 FHIR Security — Protecting PHI in API Workflows
-🔐 1. Why FHIR Must Be Secured
+# 📘 FHIR Security — Protecting PHI in API Workflows
+
+## 🔐 1. Why FHIR Must Be Secured
 
 FHIR contains:
 
@@ -16,7 +17,7 @@ Telehealth notes
 
 A breach exposes highly sensitive PHI.
 
-🧱 2. FHIR Security Layers (Simulated)
+## 🧱 2. FHIR Security Layers (Simulated)
 
 Identity
 OAuth2, JWT, mTLS
@@ -36,14 +37,16 @@ Encryption for all FHIR data
 Audit Logs
 Every access recorded
 
-🧩 3. Architecture Diagram
+## 🧩 3. Architecture Diagram
+```mermaid
 flowchart TD
 Client --> APIGW
 APIGW --> Proxy
 Proxy --> FHIR[(FHIR Store)]
 FHIR --> Audit[(Audit Logs)]
+```
 
-📜 4. HIPAA Mapping
+## 📜 4. HIPAA Mapping
 
 FHIR Security supports:
 
