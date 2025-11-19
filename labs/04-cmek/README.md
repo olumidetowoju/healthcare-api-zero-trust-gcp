@@ -40,28 +40,27 @@ This is required for secure PHI handling.
 
 ```mermaid
 flowchart TD
+    FHIR[FHIR Store<br/>planned] --> KMS[CMEK Key<br/>planned]
+    CloudRun[Cloud Run FHIR Proxy<br/>planned] --> KMS
+    API[API Gateway<br/>planned] --> CloudRun
 
-FHIR[FHIR Store (planned)] --> KMS[CMEK Key (planned)]
+    subgraph SecurityProject[Security Project<br/>planned]
+        KMS
+        KeyRing[Key Ring]
+        KeyRotation[Key Rotation]
+        AuditLogs[Audit Logs]
+    end
 
-CloudRun[Cloud Run FHIR Proxy (planned)] --> KMS
+    subgraph PrimaryProject[Primary Healthcare Project<br/>planned]
+        FHIR
+        CloudRun
+        API
+    end
 
-API[API Gateway (planned)] --> CloudRun
+    UnauthorizedSA -->|Decrypt Blocked| KMS
+```
 
-subgraph SecurityProject[Security Project (planned)]
-  KMS
-  KeyRing
-  KeyRotation
-  AuditLogs
-end
-
-subgraph PrimaryProject[Primary Healthcare Project (planned)]
-  FHIR
-  CloudRun
-  API
-end
-
-UnauthorizedSA -->|Decrypt Blocked| KMS
-🛠 3. Key Design (Simulated)
+# 🛠 3. Key Design (Simulated)
 CMEK Key Structure
 Layer	Description
 Key Ring	Organizational container
@@ -69,14 +68,17 @@ Crypto Key	Main CMEK key for PHI
 Key Versions	Rotated key versions
 Rotation Schedule	Monthly or quarterly
 
-Recommended Names
-makefile
-Copy code
+**Recommended Names**
+
 KeyRing: stc-health-crypto
+
 CryptoKey: stc-fhir-cmek
+
 Location: us-central1
+
 Rotation: every 90 days
-🔐 4. IAM for Cryptographic Keys (Simulated)
+
+# 🔐 4. IAM for Cryptographic Keys (Simulated)
 🔹 Cryptographic Roles
 Role	Why Needed
 roles/cloudkms.cryptoKeyEncrypterDecrypter	FHIR Store access
@@ -91,11 +93,9 @@ api-gateway-sa	Validates callers
 auditor-sa	Reads logs, not PHI
 kms-admin-sa	Rotates keys
 
-🔧 5. Terraform Module (Simulated)
+# 🔧 5. Terraform Module (Simulated)
 📄 File: terraform/cmek/main.tf
 
-hcl
-Copy code
 ##############################################
 # Terraform CMEK Module (SIMULATED MODE)
 ##############################################
@@ -122,9 +122,9 @@ variable "location" {
 output "note" {
   value = "CMEK module in Simulated Mode — no real KMS resources created."
 }
-📟 6. Gcloud Commands (Documentation Only — DO NOT RUN)
-bash
-Copy code
+
+# 📟 6. Gcloud Commands (Documentation Only — DO NOT RUN)
+
 # DO NOT RUN — WILL INCUR COSTS
 
 gcloud kms keyrings create stc-health-crypto \
@@ -137,7 +137,7 @@ gcloud kms keys create stc-fhir-cmek \
   --rotation-period=90d
 Terraform would apply equivalent actions — but not in Simulated Mode.
 
-🔍 7. Validation (Simulated)
+# 🔍 7. Validation (Simulated)
 You validate:
 
 ✔ labs/04-cmek/README.md exists
@@ -148,7 +148,7 @@ You validate:
 ✔ NO GCP resources created
 ✔ No billing incurred
 
-🛡 8. HIPAA Mapping
+# 🛡 8. HIPAA Mapping
 HIPAA Control	Reason
 §164.312(a)(2)(iv)	Encryption of PHI
 §164.312(c)(1)	Integrity preservation
@@ -156,7 +156,7 @@ HIPAA Control	Reason
 §164.312(b)	Audit of decrypt operations
 §164.308(a)(3)	Workforce separation (IAM)
 
-🎉 Lab 04 Complete (Simulated Mode)
+# 🎉 Lab 04 Complete (Simulated Mode)
 You now have:
 
 ✔ CMEK high-level architecture
